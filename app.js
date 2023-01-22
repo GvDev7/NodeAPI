@@ -1,9 +1,15 @@
 const express = require('express');
 const app = express();
 const Joi = require('joi');
+const morgan = require('morgan');
 const port = process.env.PORT || 3306;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
+
+if(app.get('env') === 'development') {
+    app.use(morgan('tiny'))
+    console.log('Morgan enabled...')
+}
 
 const courses = [
     {id: 1, name: 'react'},
